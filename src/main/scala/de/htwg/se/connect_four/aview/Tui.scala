@@ -17,7 +17,21 @@ class Tui(controller: ControllerInterface) extends Reactor {
   }
 
   def processInputLineLoop(): Unit = {
-    do {
+    if (winnerCheck) {
+        println("Start a new game please!")
+        input = StdIn.readLine()
+        processInputLine(input)
+        winnerCheck = false
+      }
+
+      if (controller.getTurn(0)) {
+        println(s"$player1, its your turn!")
+      } else if (controller.getTurn(1)) {
+        println(s"$player2, its your turn!")
+      }
+    input = StdIn.readLine() // stuck at this readline at the end of a gui-game
+    processInputLine(input)
+    while (input != "q") {
       if (winnerCheck) {
         println("Start a new game please!")
         input = StdIn.readLine()
@@ -32,7 +46,7 @@ class Tui(controller: ControllerInterface) extends Reactor {
       }
       input = StdIn.readLine() // stuck at this readline at the end of a gui-game
       processInputLine(input)
-    } while (input != "q")
+    }
   }
 
   def processInputLine(input: String): Unit = {
