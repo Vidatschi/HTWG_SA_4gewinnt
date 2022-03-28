@@ -1,7 +1,7 @@
 package de.htwg.se.connect_four.controller.controllerComponent.controllerBaseImpl
 
 import com.google.inject.name.Names
-import com.google.inject.{Guice, Inject}
+import com.google.inject.{Guice, Inject, Key}
 import net.codingwell.scalaguice.InjectorExtensions._
 import de.htwg.se.connect_four.ConnectFourModule
 import de.htwg.se.connect_four.controller.controllerComponent.GameStatus.GameStatus
@@ -10,15 +10,16 @@ import de.htwg.se.connect_four.model.gridComponent.gridBaseImpl.Cell
 import de.htwg.se.connect_four.util.UndoManager
 import de.htwg.se.connect_four.controller.controllerComponent.{CellChanged, ControllerInterface, GameStatus, GridSizeChanged, WinEvent}
 import de.htwg.se.connect_four.model.fileIOComponent.FileIOInterface
+import com.google.inject.Injector
 
 class Controller @Inject() (var grid: GridInterface) extends ControllerInterface {
 
-  var playerList = Array(true, false)
+  var playerList: Array[Boolean] = Array(true, false)
   var gameStatus: Gamestate = Gamestate(StatelikeIDLE(GameStatus.IDLE))
   private val undoManager = new UndoManager
-  val injector = Guice.createInjector(new ConnectFourModule)
+  val injector: Injector = Guice.createInjector(new ConnectFourModule)
 
-  val fileIo = injector.instance[FileIOInterface]
+  val fileIo: FileIOInterface = injector.getInstance(classOf[FileIOInterface])
 
   def save:Unit = {
     fileIo.save(grid, playerList)
@@ -38,17 +39,17 @@ class Controller @Inject() (var grid: GridInterface) extends ControllerInterface
   def createEmptyGrid(s:String): Unit = {
     s match {
       case "Grid Small" =>{
-        grid = injector.instance[GridInterface](Names.named(("Grid Small")))
+        grid = injector.getInstance(Key.get(classOf[GridInterface],Names.named("Grid Small")))
         gridrow = 6
         gridcol = 7
       }
       case "Grid Middle" => {
-        grid = injector.instance[GridInterface](Names.named(("Grid Middle")))
+        grid = injector.getInstance(Key.get(classOf[GridInterface],Names.named("Grid Middle")))
         gridrow = 10
         gridcol = 11
       }
       case "Grid Huge" => {
-        grid = injector.instance[GridInterface](Names.named(("Grid Large")))
+        grid = injector.getInstance(Key.get(classOf[GridInterface],Names.named("Grid Large")))
         gridrow = 16
         gridcol = 17
       }

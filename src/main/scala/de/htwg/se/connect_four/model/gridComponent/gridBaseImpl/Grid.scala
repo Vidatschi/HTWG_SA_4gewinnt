@@ -51,6 +51,6 @@ case class Grid(cells: Matrix[Cell]) extends GridInterface {
 
 object Grid {
   import play.api.libs.json._
-  implicit val gridWrites = Json.writes[Grid]
-  implicit val gridReads = Json.reads[Grid]
+  implicit val gridWrites: OWrites[Grid] = Json.writes[Grid]
+  implicit val gridReads: Reads[Grid] = Json.reads[Grid]
 }

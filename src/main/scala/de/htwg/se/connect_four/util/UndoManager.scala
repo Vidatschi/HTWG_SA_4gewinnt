@@ -3,11 +3,11 @@ package de.htwg.se.connect_four.util
 class UndoManager {
   private var undoStack: List[Command]= Nil
   private var redoStack: List[Command]= Nil
-  def doStep(command: Command) = {
+  def doStep(command: Command): Unit = {
     undoStack = command::undoStack
     command.doStep
   }
-  def undoStep  = {
+  def undoStep: Unit  = {
     undoStack match {
       case  Nil =>
       case head::stack => {
@@ -17,7 +17,7 @@ class UndoManager {
       }
     }
   }
-  def redoStep = {
+  def redoStep: Unit = {
     redoStack match {
       case Nil =>
       case head::stack => {

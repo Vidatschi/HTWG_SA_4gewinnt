@@ -11,7 +11,7 @@ class CellPanel(row: Int, column: Int, controller: ControllerInterface) extends 
 
   var winnerCheck = false;
 
-  def redraw = {
+  def redraw: Unit = {
     repaint()
   }
 

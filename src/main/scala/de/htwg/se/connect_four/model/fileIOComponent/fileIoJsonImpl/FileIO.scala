@@ -3,7 +3,7 @@ package de.htwg.se.connect_four.model.fileIOComponent.fileIoJsonImpl
 import java.io.{File, PrintWriter}
 
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor
-import com.google.inject.Guice
+import com.google.inject.{Guice, Key}
 import com.google.inject.name.Names
 import net.codingwell.scalaguice.InjectorExtensions._
 import de.htwg.se.connect_four.ConnectFourModule
@@ -25,9 +25,9 @@ class FileIO extends FileIOInterface {
     val player2 = (json \ "players" \ "Player2").get.toString().toBoolean
     val injector = Guice.createInjector(new ConnectFourModule)
     size match {
-      case 42 => grid = injector.instance[GridInterface](Names.named("Grid Small"))
-      case 110 => grid = injector.instance[GridInterface](Names.named("Grid Middle"))
-      case 272 => grid = injector.instance[GridInterface](Names.named("Grid Huge"))
+      case 42 => grid = injector.getInstance(Key.get(classOf[GridInterface],Names.named("Grid Small")))
+      case 110 => grid = injector.getInstance(Key.get(classOf[GridInterface],Names.named("Grid Middle")))
+      case 272 => grid = injector.getInstance(Key.get(classOf[GridInterface],Names.named("Grid Huge")))
       case _ => println("jjj")
     }
     for (index <- 0 until rows * cols) {
@@ -47,7 +47,7 @@ class FileIO extends FileIOInterface {
     pw.close()
   }
 
-  implicit val cellWrites = new Writes[CellInterface] {
+  implicit val cellWrites: Writes[CellInterface] = new Writes[CellInterface] {
     override def writes(o: CellInterface): JsValue = {
       Json.obj(
         "value" -> o.value

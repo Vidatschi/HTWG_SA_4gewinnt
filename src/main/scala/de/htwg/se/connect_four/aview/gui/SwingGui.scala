@@ -8,10 +8,10 @@ class CellClicked(val row: Int, val column: Int) extends Event
 
 class SwingGui(controller: ControllerInterface) extends Frame {
   listenTo(controller)
-  var cells = Array.ofDim[CellPanel](controller.getGridRow, controller.getGridCol)
+  var cells: Array[Array[CellPanel]] = Array.ofDim[CellPanel](controller.getGridRow, controller.getGridCol)
   title = "Connect Four"
 
-  def gridPanel = new GridPanel(controller.getGridRow, controller.getGridCol) {
+  def gridPanel: GridPanel = new GridPanel(controller.getGridRow, controller.getGridCol) {
     for {
       row <- 0 until controller.getGridRow
       column <- 0 until controller.getGridCol
@@ -23,7 +23,7 @@ class SwingGui(controller: ControllerInterface) extends Frame {
     }
   }
 
-  val statusline = new Label(){text = "Player " + controller.currentPlayer().toString + " it's your Turn!"}
+  val statusline: Label = new Label(){text = "Player " + controller.currentPlayer().toString + " it's your Turn!"}
 
   contents = new BorderPanel {
     add(gridPanel, BorderPanel.Position.Center)
@@ -64,7 +64,7 @@ class SwingGui(controller: ControllerInterface) extends Frame {
     case event: WinEvent        => printWinner
   }
 
-  def resize(gridrow: Int, gridcol:Int) = {
+  def resize(gridrow: Int, gridcol:Int): Unit = {
     cells = Array.ofDim[CellPanel](controller.getGridRow, controller.getGridCol)
     statusline.text = "Player " + controller.currentPlayer().toString + " it's your Turn!"
     contents = new BorderPanel {
@@ -73,7 +73,7 @@ class SwingGui(controller: ControllerInterface) extends Frame {
     }
   }
 
-  def redraw = {
+  def redraw: Unit = {
     for {
       row <- 0 until controller.getGridRow
       column <- 0 until controller.getGridCol
@@ -82,7 +82,7 @@ class SwingGui(controller: ControllerInterface) extends Frame {
     repaint()
   }
 
-  def printWinner = {
+  def printWinner: Unit = {
     statusline.text = "Player " + controller.currentPlayer().toString + " won!"
     repaint()
   }
