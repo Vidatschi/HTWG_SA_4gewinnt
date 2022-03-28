@@ -16,7 +16,7 @@ import scala.io.Source
 class FileIO extends FileIOInterface {
   override def load: (GridInterface, Array[Boolean]) = {
     var grid :GridInterface = null
-    val source: String = Source.fromFile("grid.json").getLines.mkString
+    val source: String = Source.fromFile("grid.json").getLines().mkString
     val json: JsValue = Json.parse(source)
     val size = (json \ "grid" \ "size").get.toString().toInt
     val rows = (json \ "grid" \ "rows").get.toString.toInt

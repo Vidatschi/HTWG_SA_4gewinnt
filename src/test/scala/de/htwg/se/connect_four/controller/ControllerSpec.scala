@@ -2,8 +2,11 @@ package de.htwg.se.connect_four.controller
 import de.htwg.se.connect_four.controller.controllerComponent.controllerBaseImpl.Controller
 import de.htwg.se.connect_four.model.gridComponent.gridBaseImpl.Grid
 import de.htwg.se.connect_four.util.Observer
-import org.scalatest.{Matchers, WordSpec}
-class ControllerSpec extends WordSpec with Matchers {
+//import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
+
+class ControllerSpec extends AnyWordSpec with Matchers {
   "a controller" when {
     "observed by an Observer" should {
       val aGrid = new Grid(2, 3)

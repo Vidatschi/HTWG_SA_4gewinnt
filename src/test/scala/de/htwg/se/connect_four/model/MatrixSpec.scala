@@ -1,9 +1,11 @@
 package de.htwg.se.connect_four.model
 
 import de.htwg.se.connect_four.model.gridComponent.gridBaseImpl.{Cell, Matrix}
-import org.scalatest.{Matchers, WordSpec}
+//import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
-class MatrixSpec extends WordSpec with Matchers {
+class MatrixSpec extends AnyWordSpec with Matchers {
   "A Matrix is a tailor-made immutable data type that contains a two-dimentional Vector of Cells. A Matrix" when {
     "empty" should {
       "be created by 4x5 matrix filled with empty cells" in {

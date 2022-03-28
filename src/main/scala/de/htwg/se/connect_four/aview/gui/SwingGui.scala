@@ -79,11 +79,11 @@ class SwingGui(controller: ControllerInterface) extends Frame {
       column <- 0 until controller.getGridCol
     } cells(row)(column).redraw
     statusline.text = "Player " + controller.currentPlayer().toString + " it's your Turn!"
-    repaint
+    repaint()
   }
 
   def printWinner = {
     statusline.text = "Player " + controller.currentPlayer().toString + " won!"
-    repaint
+    repaint()
   }
 }

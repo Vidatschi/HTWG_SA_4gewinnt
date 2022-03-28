@@ -1,7 +1,10 @@
 package de.htwg.se.connect_four.model
 import de.htwg.se.connect_four.model.gridComponent.gridBaseImpl.{Cell, Field}
-import org.scalatest.{Matchers, WordSpec}
-class FieldSpec extends WordSpec with Matchers {
+//import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
+
+class FieldSpec extends AnyWordSpec with Matchers {
   "a field is a row or a column or a diagonal of a grid" when {
     val field = Field(Vector(Cell(1), Cell(2),Cell(3),Cell(5)))
     "cell function is to test" in {

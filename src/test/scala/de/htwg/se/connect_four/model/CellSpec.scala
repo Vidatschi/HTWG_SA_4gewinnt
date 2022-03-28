@@ -1,9 +1,11 @@
 package de.htwg.se.connect_four.model
 
 import de.htwg.se.connect_four.model.gridComponent.gridBaseImpl.Cell
-import org.scalatest.{Matchers, WordSpec}
+//import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
-class CellSpec extends WordSpec with Matchers {
+class CellSpec extends AnyWordSpec with Matchers {
 
   "a Cell" when {
     "not set to any value" should {

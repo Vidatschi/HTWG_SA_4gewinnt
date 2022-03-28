@@ -2,19 +2,14 @@ name := "Connect Four in scala"
 
 version := "0.1"
 
-scalaVersion := "2.12.7"
+scalaVersion := "2.13.7"
 
-libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.5"
-libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % "test"
-
-libraryDependencies += "org.scala-lang.modules" % "scala-swing_2.12" % "2.0.3"
-
-libraryDependencies += "org.scala-lang.modules" % "scala-swing_2.12" % "2.0.1"
-
-libraryDependencies += "com.google.inject" % "guice" % "4.1.0"
-
-libraryDependencies += "net.codingwell" %% "scala-guice" % "4.1.0"
-
-libraryDependencies += "org.scala-lang.modules" % "scala-xml_2.12" % "1.0.6"
-
-libraryDependencies += "com.typesafe.play" %% "play-json" % "2.6.6"
+libraryDependencies ++=Seq(
+  "org.scalactic" %% "scalactic" % "3.2.11",
+  "org.scalatest" %% "scalatest" % "3.2.11" % "test",
+  "org.scala-lang.modules" %% "scala-swing" % "3.0.0",
+  "com.google.inject" % "guice" % "5.0.1",
+  "net.codingwell" %% "scala-guice" % "5.0.2",
+  "org.scala-lang.modules" %% "scala-xml" % "2.0.1",
+  "com.typesafe.play" %% "play-json" % "2.10.0-RC6"
+)

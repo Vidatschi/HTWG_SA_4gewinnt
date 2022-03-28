@@ -68,7 +68,7 @@ class Tui(controller: ControllerInterface) extends Reactor {
   reactions += {
     case event: CellChanged => printTui()
     case event: GridSizeChanged => printTui()
-    case event: WinEvent => printWinner
+    case event: WinEvent => printWinner()
   }
 
   def printTui(): Unit = {

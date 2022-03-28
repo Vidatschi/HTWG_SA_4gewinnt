@@ -20,12 +20,12 @@ class Controller @Inject() (var grid: GridInterface) extends ControllerInterface
 
   val fileIo = injector.instance[FileIOInterface]
 
-  def save():Unit = {
+  def save:Unit = {
     fileIo.save(grid, playerList)
     publish(new CellChanged)
   }
 
-  def load():Unit =  {
+  def load:Unit =  {
     val data = fileIo.load
     grid = data._1
     playerList = data._2

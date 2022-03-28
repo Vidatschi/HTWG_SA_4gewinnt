@@ -2,9 +2,11 @@ package de.htwg.se.connect_four.aview
 
 import de.htwg.se.connect_four.controller.controllerComponent.controllerBaseImpl.Controller
 import de.htwg.se.connect_four.model.gridComponent.gridBaseImpl.Grid
-import org.scalatest.{Matchers, WordSpec}
+//import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
-class TuiSpec extends WordSpec with Matchers {
+class TuiSpec extends AnyWordSpec with Matchers {
   "a Tui" when {
     "his function processInputLine is to test" should {
       val controller = new Controller(new Grid(6,7))
