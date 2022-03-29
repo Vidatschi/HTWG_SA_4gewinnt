@@ -32,7 +32,11 @@ project/.sbtserver
 # Scala-IDE specific
 .scala_dependencies
 
+#VS Code
 .vscode
 .metals
 .bloop
+.ammonite
+.bsp
+metals.sbt
 null/
