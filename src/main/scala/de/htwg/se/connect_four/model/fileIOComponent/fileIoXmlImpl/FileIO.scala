@@ -2,7 +2,6 @@ package de.htwg.se.connect_four.model.fileIOComponent.fileIoXmlImpl
 
 import com.google.inject.{Guice, Key}
 import com.google.inject.name.Names
-import net.codingwell.scalaguice.InjectorExtensions._
 import de.htwg.se.connect_four.ConnectFourModule
 import de.htwg.se.connect_four.model.fileIOComponent.FileIOInterface
 import de.htwg.se.connect_four.model.gridComponent.GridInterface

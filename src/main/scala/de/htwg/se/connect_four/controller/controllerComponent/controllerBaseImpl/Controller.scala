@@ -2,7 +2,6 @@ package de.htwg.se.connect_four.controller.controllerComponent.controllerBaseImp
 
 import com.google.inject.name.Names
 import com.google.inject.{Guice, Inject, Key}
-import net.codingwell.scalaguice.InjectorExtensions._
 import de.htwg.se.connect_four.ConnectFourModule
 import de.htwg.se.connect_four.controller.controllerComponent.GameStatus.GameStatus
 import de.htwg.se.connect_four.model.gridComponent.GridInterface

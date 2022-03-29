@@ -39,4 +39,5 @@ project/.sbtserver
 .ammonite
 .bsp
 metals.sbt
+project/metals.sbt
 null/
