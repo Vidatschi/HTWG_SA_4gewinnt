@@ -4,14 +4,19 @@ import scala.swing._
 import javax.swing.table._
 
 import scala.swing.event._
-import de.htwg.se.connect_four.controller.controllerComponent.{CellChanged, ControllerInterface, GridSizeChanged, WinEvent}
+import de.htwg.se.connect_four.controller.controllerComponent.{
+  CellChanged,
+  ControllerInterface,
+  GridSizeChanged,
+  WinEvent
+}
 
-
-class CellPanel(row: Int, column: Int, controller: ControllerInterface) extends FlowPanel {
+class CellPanel(row: Int, column: Int, controller: ControllerInterface)
+    extends FlowPanel {
 
   var winnerCheck = false;
 
-  def redraw = {
+  def redraw: Unit = {
     repaint()
   }
 
