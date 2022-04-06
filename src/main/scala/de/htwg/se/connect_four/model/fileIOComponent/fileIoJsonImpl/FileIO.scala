@@ -7,17 +7,13 @@ import com.google.inject.{Guice, Key}
 import com.google.inject.name.Names
 import de.htwg.se.connect_four.ConnectFourModule
 import de.htwg.se.connect_four.model.fileIOComponent.FileIOInterface
-import de.htwg.se.connect_four.model.gridComponent.{
-  CellInterface,
-  GridInterface
-}
+import de.htwg.se.connect_four.model.gridComponent.{CellInterface, GridInterface}
 import play.api.libs.json._
 
 import scala.io.Source
 
 class FileIO extends FileIOInterface {
   override def load: (GridInterface, Array[Boolean]) = {
-    var grid: GridInterface = null
     val source: String = Source.fromFile("grid.json").getLines().mkString
     val json: JsValue = Json.parse(source)
     val size = (json \ "grid" \ "size").get.toString().toInt
@@ -26,28 +22,15 @@ class FileIO extends FileIOInterface {
     val player1 = (json \ "players" \ "Player1").get.toString().toBoolean
     val player2 = (json \ "players" \ "Player2").get.toString().toBoolean
     val injector = Guice.createInjector(new ConnectFourModule)
-    size match {
+    val mappedCells: String = Source.fromFile("grid.json").getLines.mkString
+    val clist: JsValue = Json.parse(mappedCells)
+    val grid: GridInterface = size match {
       case 42 =>
-        grid = injector.getInstance(
-          Key.get(classOf[GridInterface], Names.named("Grid Small"))
-        )
+        set_grid(clist, injector.getInstance(Key.get(classOf[GridInterface], Names.named("Grid Small"))), rows * cols, 0)
       case 110 =>
-        grid = injector.getInstance(
-          Key.get(classOf[GridInterface], Names.named("Grid Middle"))
-        )
+        set_grid(clist, injector.getInstance(Key.get(classOf[GridInterface], Names.named("Grid Middle"))), rows * cols, 0)
       case 272 =>
-        grid = injector.getInstance(
-          Key.get(classOf[GridInterface], Names.named("Grid Huge"))
-        )
-      case _ => println("jjj")
-    }
-    for (index <- 0 until rows * cols) {
-      val row = (json \\ "row")(index).as[Int]
-      val col = (json \\ "col")(index).as[Int]
-      val cell = (json \\ "cell")(index)
-      val value = (cell \ "value").as[Int]
-      grid = grid.set(row, col, value)
-
+        set_grid(clist, injector.getInstance(Key.get(classOf[GridInterface], Names.named("Grid Huge"))), rows * cols, 0)
     }
     (grid, Array(player1, player2))
   }
@@ -63,6 +46,18 @@ class FileIO extends FileIOInterface {
       Json.obj(
         "value" -> o.value
       )
+    }
+  }
+
+  def set_grid(clist: JsValue, grid: GridInterface, size: Int, index: Int): GridInterface = {
+    if (index != size) {
+      val row = (clist \\ "row")(index).as[Int]
+      val col = (clist \\ "col")(index).as[Int]
+      val cell = (clist \\ "cell")(index)
+      val value = (cell \ "value").as[Int]
+      set_grid(clist, grid.set(row, col, value), size, index + 1)
+    } else {
+      grid
     }
   }
 

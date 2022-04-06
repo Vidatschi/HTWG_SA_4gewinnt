@@ -26,7 +26,7 @@ class CellSpec extends AnyWordSpec with Matchers {
         nonEmptyCell.isSet should be(true)
       }
       "test set function" in {
-        nonEmptyCell = nonEmptyCell.set(2)
+        // nonEmptyCell = nonEmptyCell.set(2) alrdy set?
         nonEmptyCell.value should be(2)
       }
     }

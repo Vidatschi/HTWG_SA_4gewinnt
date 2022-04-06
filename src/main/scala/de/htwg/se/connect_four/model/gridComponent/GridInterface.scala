@@ -21,7 +21,7 @@ trait GridInterface {
 
   def col(col: Int): Field
 
-  def link_diagonal(row: Int, col: Int): Field
+  def left_diagonal(row: Int, col: Int): Field
 
   def right_diagonal(row: Int, col: Int): Field
 }
@@ -29,5 +29,4 @@ trait GridInterface {
 trait CellInterface {
   def value: Int
   def isSet: Boolean
-  def set(value: Int): CellInterface
 }
