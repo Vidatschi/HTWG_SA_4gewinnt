@@ -15,36 +15,48 @@ case class Grid(cells: Matrix[Cell]) extends GridInterface {
   def row(row: Int): Field = Field(cells.rows(row))
   def col(col: Int): Field = Field(cells.rows.map(row => row(col)))
 
-  def link_diagonal(row: Int, col: Int): Field = {
-    var mrow = row
-    var mcol = col
+  def left_diagonal(row: Int, col: Int): Field = {
+    val array = r1_left_diagonal(row, col)
     val mvec = ArrayBuffer[Cell]()
-    while (mrow < cells.row - 1 && mcol > 0) {
-      mrow = mrow + 1
-      mcol = mcol - 1
-    }
-    while (mrow >= 0 && mcol < cells.col) {
-      mvec.append(cells.cell(mrow, mcol))
-      mrow = mrow - 1
-      mcol = mcol + 1
-    }
+    r2_left_diagonal(array(0), array(1), mvec)
     Field(mvec.toVector)
   }
 
   def right_diagonal(row: Int, col: Int): Field = {
-    var mrow = row
-    var mcol = col
+    val array = r1_right_diagonal(row, col)
     val mvec = ArrayBuffer[Cell]()
-    while (mrow > 0 && mcol > 0) {
-      mrow = mrow - 1
-      mcol = mcol - 1
-    }
-    while (mrow < cells.row && mcol < cells.col) {
-      mvec.append(cells.cell(mrow, mcol))
-      mrow = mrow + 1
-      mcol = mcol + 1
-    }
+    r2_right_diagonal(array(0), array(1), mvec)
     Field(mvec.toVector)
+  }
+
+  def r1_left_diagonal(row: Int, col: Int): Array[Int] = {
+    if (row < cells.row - 1 && col > 0) {
+      r1_left_diagonal(row + 1, col - 1)
+    } else {
+      Array(row, col)
+    }
+  }
+
+  def r2_left_diagonal(row: Int, col: Int, mvec: ArrayBuffer[Cell]): Unit = {
+    if (row >= 0 && col < cells.col) {
+      mvec.append(cells.cell(row, col))
+      r2_left_diagonal(row - 1, col + 1, mvec)
+    }
+  }
+
+  def r1_right_diagonal(row: Int, col: Int): Array[Int] = {
+    if (row > 0 && col > 0) {
+      r1_right_diagonal(row = row - 1, col = col - 1)
+    } else {
+      Array(row, col)
+    }
+  }
+
+  def r2_right_diagonal(row: Int, col: Int, mvec: ArrayBuffer[Cell]): Unit = {
+    if (row < cells.row && col < cells.col) {
+      mvec.append(cells.cell(row, col))
+      r2_right_diagonal(row = row + 1, col = col + 1, mvec)
+    }
   }
 
   override def toString: String = cells.toString

@@ -39,31 +39,22 @@ class Controller @Inject() (var grid: GridInterface)
     publish(new CellChanged)
   }
 
-  var gridrow = 6
-  var gridcol = 7
-
   def createEmptyGrid(s: String): Unit = {
     s match {
       case "Grid Small" => {
         grid = injector.getInstance(
           Key.get(classOf[GridInterface], Names.named("Grid Small"))
         )
-        gridrow = 6
-        gridcol = 7
       }
       case "Grid Middle" => {
         grid = injector.getInstance(
           Key.get(classOf[GridInterface], Names.named("Grid Middle"))
         )
-        gridrow = 10
-        gridcol = 11
       }
       case "Grid Huge" => {
         grid = injector.getInstance(
           Key.get(classOf[GridInterface], Names.named("Grid Large"))
         )
-        gridrow = 16
-        gridcol = 17
       }
     }
     resetPlayerList()
@@ -94,13 +85,13 @@ class Controller @Inject() (var grid: GridInterface)
   }
 
   def checkWinner(row: Int, col: Int): Boolean = {
-    if (check4number(grid.col(col).getCells)) {
+    if (check4number(grid.col(col).cells)) {
       true
-    } else if (check4number(grid.row(row).getCells)) {
+    } else if (check4number(grid.row(row).cells)) {
       true
-    } else if (check4number(grid.link_diagonal(row, col).getCells)) {
+    } else if (check4number(grid.left_diagonal(row, col).cells)) {
       true
-    } else if (check4number(grid.right_diagonal(row, col).getCells)) {
+    } else if (check4number(grid.right_diagonal(row, col).cells)) {
       true
     } else {
       false
@@ -156,7 +147,7 @@ class Controller @Inject() (var grid: GridInterface)
 
   override def getGameStatus(): GameStatus = gameStatus.mystate.gameStatus
 
-  override def getGridRow: Int = gridrow
+  override def getGridRow: Int = grid.rows
 
-  override def getGridCol: Int = gridcol
+  override def getGridCol: Int = grid.cols
 }
